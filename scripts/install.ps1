@@ -159,7 +159,7 @@ $Link1.Add_PreviewMouseDown({[system.Diagnostics.Process]::start('https://msgang
 # Download links
     $uri = "https://github.com/bonben365/office-installer/raw/main/setup.exe"
     $uri2013 = "https://github.com/bonben365/office-installer/raw/main/bin2013.exe"
-    # $activator = 'https://filedn.com/lOX1R8Sv7vhpEG9Q77kMbn0/MSGANG/scripts/office/activator.bat'
+    $activator = 'https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/activator.bat'
     # $uninstall = 'https://filedn.com/lOX1R8Sv7vhpEG9Q77kMbn0/MSGANG/scripts/office/uninstall.bat'
     # $readme = 'https://filedn.com/lOX1R8Sv7vhpEG9Q77kMbn0/MSGANG/scripts/office/Readme.txt'
     # $link = 'https://filedn.com/lOX1R8Sv7vhpEG9Q77kMbn0/MSGANG/scripts/office/Microsoft%20products%20for%20FREE.html'
