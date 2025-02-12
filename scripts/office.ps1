@@ -239,3 +239,4 @@ cscript //nologo ospp.vbs /act | Out-Null
 
 $dstatus = Invoke-Expression -Command "cscript.exe ospp.vbs /dstatus"
 Write-Host "Number of Activated Products: $(($dstatus | Select-String -SimpleMatch "LICENSED").Count)" -ForegroundColor Green
+$dstatus 
