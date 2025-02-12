@@ -1,9 +1,9 @@
-#Write-Host =========================================================================
-#Write-Host Name:           Microsoft Office Activator by Leo.
-#Write-Host Description:    Activate all Offices Editions for free without any software.
-#Write-Host Website:        https://msgang.com
-#Write-Host Script by:      Leo Nguyen
-#Write-Host =========================================================================
+Write-Host '========================================================================='
+Write-Host 'Name:           Microsoft Office Activator by Leo.'
+Write-Host 'Description:    Activate all Offices Editions for free without any software.'
+Write-Host' Website:        https://msgang.com'
+Write-Host 'Script by:      Leo Nguyen'
+Write-Host '========================================================================='
 
 if (-not([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Warning "You need to have Administrator rights to run this script!`nPlease re-run this script as an Administrator in an elevated powershell prompt!"
