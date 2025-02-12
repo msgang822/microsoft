@@ -1,7 +1,7 @@
 Write-Host '========================================================================='
 Write-Host 'Name:           Microsoft Office Activator by Leo.'
 Write-Host 'Description:    Activate all Offices Editions for free without any software.'
-Write-Host' Website:        https://msgang.com'
+Write-Host 'Website:        https://msgang.com'
 Write-Host 'Script by:      Leo Nguyen'
 Write-Host '========================================================================='
 
