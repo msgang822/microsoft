@@ -237,6 +237,6 @@ cscript ospp.vbs /remhst | Out-Null
 cscript ospp.vbs /sethst:kms.msgang.com | Out-Null
 cscript //nologo ospp.vbs /act | Out-Null
 
-$dstatus = Invoke-Expression -Command "cscript.exe ospp.vbs /dstatus"
-Write-Host "Number of Activated Products: $(($dstatus | Select-String -SimpleMatch "LICENSED").Count)" -ForegroundColor Green
+$dstatus = Invoke-Expression -Command "cscript.exe //nologo ospp.vbs /dstatus"
+Write-Host "Number of Activated Products: $(($dstatus | Select-String -SimpleMatch "LICENSED").Count)`n" -ForegroundColor Green
 $dstatus 
