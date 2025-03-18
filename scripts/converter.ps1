@@ -52,10 +52,10 @@ $convert = {
    Copy-Item -Path $sku $env:windir\system32\spp\tokens\skus\ -Recurse -Force -ErrorAction SilentlyContinue
    &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /rilc | Out-Null
    &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /upk | Out-Null
-   # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ckms | Out-Null
-   # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /cpky | Out-Null
+   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ckms | Out-Null
+   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /cpky | Out-Null
    # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /skms kms.msgang.com | Out-Null
-   # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ipk $key
+   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ipk $key
    # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ato | Out-Null
    Write-Host
    Write-Host "Done............" -ForegroundColor Green 
