@@ -1,6 +1,5 @@
 
 <Configuration>
   <Remove All="TRUE" />
-  <RemoveMSI />
   <Display Level="None" AcceptEULA="TRUE" />
 </Configuration>
