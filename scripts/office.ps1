@@ -10,19 +10,16 @@ if (-not([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdenti
     break
 }
 
-#Detect Office installations
-$path64 = "C:\Program Files\Microsoft Office\Office1*"
-$path32 = "C:\Program Files (x86)\Microsoft Office\Office1*"
-if ((Test-Path -Path "$path32\ospp.vbs")) { Set-Location $path32 -ErrorAction SilentlyContinue }
-if ((Test-Path -Path "$path64\ospp.vbs")) { Set-Location $path64 -ErrorAction SilentlyContinue }
+# Detect Office installations
+    $path64 = "C:\Program Files\Microsoft Office\Office1*"
+    $path32 = "C:\Program Files (x86)\Microsoft Office\Office1*"
+    if ((Test-Path -Path "$path32\ospp.vbs")) { Set-Location $path32 -ErrorAction SilentlyContinue }
+    if ((Test-Path -Path "$path64\ospp.vbs")) { Set-Location $path64 -ErrorAction SilentlyContinue }
 
-#$ospp = (Resolve-Path -Path "C:\Program Files*\Microsoft Office\Office1*\ospp.vbs").Path
-#Find OSPP.vbs path and run the command with the dstatus option (Last 1...)
 Write-Host
 Write-Host "Checking Installed Office editions..." -ForegroundColor Green
 $dstatus = Invoke-Expression -Command "cscript.exe ospp.vbs /dstatus"
 
-#$apps = $dstatus | Select-String -SimpleMatch "NAME:" | ForEach-Object -Process { $_.tostring().split(" ")[-2]}
 $retailCount = ($dstatus | Select-String -SimpleMatch "RETAIL" | Measure-Object).Count
 $volumeCount = ($dstatus | Select-String -SimpleMatch "VOLUME" | Measure-Object).Count
 Write-Host "Number of Installed Office apps: VOLUME: $volumeCount - RETAIL: $retailCount" -ForegroundColor Green
@@ -202,9 +199,9 @@ if (($dstatus | Select-String -SimpleMatch "Office15" | Measure-Object).Count -g
 
 function Office2013-V2R {
     Write-Host "Converting from Retail to Volume..." -ForegroundColor Green
-    $inslics = Get-ChildItem -Path "$env:temp\tmp\library" | Where-Object {$_.Name -like "$licName"}
+    $inslics = Get-ChildItem -Path "$env:temp\tmp\library\$licName"
     foreach ($inslic in $inslics){
-        cscript ospp.vbs /inslic:"$env:temp\tmp\library\$($inslic.Name)" | Out-Null
+        cscript ospp.vbs /inslic:"$env:temp\tmp\library\$licName\$($inslic.Name)" | Out-Null
     }
     cscript ospp.vbs /inpkey:$2013kmskey | Out-Null
 }
@@ -217,19 +214,19 @@ if ($matchingOffice2013Retail -gt 0 ) {
     $null = Expand-Archive "$env:temp\tmp\library.zip" "$env:temp\tmp\library" -Force
 }
 
-if (($dstatus | Select-String -SimpleMatch "OfficeProfessional" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProPlusVL*'; $2013kmskey = 'YC7DK-G2NP3-2QQC3-J6H88-GVGXT'; Office2013-V2R} #For Office 2013Retail (Pro)
-if (($dstatus | Select-String -SimpleMatch "OfficeProPlus" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProPlusVL*'; $2013kmskey = 'YC7DK-G2NP3-2QQC3-J6H88-GVGXT'; Office2013-V2R} #For Office 2013Retail (Pro) (MSDN)
-if (($dstatus | Select-String -SimpleMatch "OfficeStandard" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'StandardVL*'; $2013kmskey = 'KBKQT-2NMXY-JJWGP-M62JB-92CD4'; Office2013-V2R} #For Office 2013Retail (Standard)
-if (($dstatus | Select-String -SimpleMatch "OfficeProjectPro" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProjectProVL*'; $2013kmskey = 'FN8TT-7WMH6-2D4X9-M337T-2342K'; Office2013-V2R} #For Office 2013Standalone (Project Pro)
-if (($dstatus | Select-String -SimpleMatch "OfficeProjectStd" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProjectStdVL*'; $2013kmskey = '6NTH3-CW976-3G3Y2-JK3TX-8QHTT'; Office2013-V2R} #For Office 2013Standalone (Project Standard)
-if (($dstatus | Select-String -SimpleMatch "OfficeVisioPro" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'VisioProVL*'; $2013kmskey = 'C2FG9-N6J68-H8BTJ-BW3QX-RM3B3'; Office2013-V2R} #For Office 2013Standalone (Visio Pro)
-if (($dstatus | Select-String -SimpleMatch "OfficeVisioStd" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'VisioStdVL*'; $2013kmskey = 'J484Y-4NKBF-W2HMG-DBMJC-PGWR7'; Office2013-V2R} #For Office 2013Standalone (Visio Standard)
-if (($dstatus | Select-String -SimpleMatch "OfficeWord" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'WordVL*'; $2013kmskey = '6Q7VD-NX8JD-WJ2VH-88V73-4GBJ7'; Office2013-V2R} #For Office 2013Standalone (Word)
-if (($dstatus | Select-String -SimpleMatch "OfficeExcel" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ExcelVL*'; $2013kmskey = 'VGPNG-Y7HQW-9RHP7-TKPV3-BG7GB'; Office2013-V2R} #For Office 2013Standalone (Excel)
-if (($dstatus | Select-String -SimpleMatch "OfficePowerPoint" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'PowerPointVL*'; $2013kmskey = '4NT99-8RJFH-Q2VDH-KYG2C-4RD4F'; Office2013-V2R} #For Office 2013Standalone (PowerPoint)
-if (($dstatus | Select-String -SimpleMatch "OfficeOutlook" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'OutlookVL*'; $2013kmskey = 'QPN8Q-BJBTJ-334K3-93TGY-2PMBT'; Office2013-V2R} #For Office 2013Standalone (Outlook)
-if (($dstatus | Select-String -SimpleMatch "OfficeAccess" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'AccessVL*'; $2013kmskey = 'NG2JY-H4JBT-HQXYP-78QH9-4JM2D'; Office2013-V2R} #For Office 2013Standalone (Access)
-if (($dstatus | Select-String -SimpleMatch "OfficePublisher" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'PublisherVL*'; $2013kmskey = 'PN2WF-29XG2-T9HJ7-JQPJR-FCXK4'; Office2013-V2R} #For Office 2013Standalone (Publisher)
+if (($dstatus | Select-String -SimpleMatch "OfficeProfessional" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProPlusVL'; $2013kmskey = 'YC7DK-G2NP3-2QQC3-J6H88-GVGXT'; Office2013-V2R} #For Office 2013Retail (Pro)
+if (($dstatus | Select-String -SimpleMatch "OfficeProPlus" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProPlusVL'; $2013kmskey = 'YC7DK-G2NP3-2QQC3-J6H88-GVGXT'; Office2013-V2R} #For Office 2013Retail (Pro) (MSDN)
+if (($dstatus | Select-String -SimpleMatch "OfficeStandard" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'StandardVL'; $2013kmskey = 'KBKQT-2NMXY-JJWGP-M62JB-92CD4'; Office2013-V2R} #For Office 2013Retail (Standard)
+if (($dstatus | Select-String -SimpleMatch "OfficeProjectPro" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProjectProVL'; $2013kmskey = 'FN8TT-7WMH6-2D4X9-M337T-2342K'; Office2013-V2R} #For Office 2013Standalone (Project Pro)
+if (($dstatus | Select-String -SimpleMatch "OfficeProjectStd" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ProjectStdVL'; $2013kmskey = '6NTH3-CW976-3G3Y2-JK3TX-8QHTT'; Office2013-V2R} #For Office 2013Standalone (Project Standard)
+if (($dstatus | Select-String -SimpleMatch "OfficeVisioPro" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'VisioProVL'; $2013kmskey = 'C2FG9-N6J68-H8BTJ-BW3QX-RM3B3'; Office2013-V2R} #For Office 2013Standalone (Visio Pro)
+if (($dstatus | Select-String -SimpleMatch "OfficeVisioStd" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'VisioStdVL'; $2013kmskey = 'J484Y-4NKBF-W2HMG-DBMJC-PGWR7'; Office2013-V2R} #For Office 2013Standalone (Visio Standard)
+if (($dstatus | Select-String -SimpleMatch "OfficeWord" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'WordVL'; $2013kmskey = '6Q7VD-NX8JD-WJ2VH-88V73-4GBJ7'; Office2013-V2R} #For Office 2013Standalone (Word)
+if (($dstatus | Select-String -SimpleMatch "OfficeExcel" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'ExcelVL'; $2013kmskey = 'VGPNG-Y7HQW-9RHP7-TKPV3-BG7GB'; Office2013-V2R} #For Office 2013Standalone (Excel)
+if (($dstatus | Select-String -SimpleMatch "OfficePowerPoint" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'PowerPointVL'; $2013kmskey = '4NT99-8RJFH-Q2VDH-KYG2C-4RD4F'; Office2013-V2R} #For Office 2013Standalone (PowerPoint)
+if (($dstatus | Select-String -SimpleMatch "OfficeOutlook" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'OutlookVL'; $2013kmskey = 'QPN8Q-BJBTJ-334K3-93TGY-2PMBT'; Office2013-V2R} #For Office 2013Standalone (Outlook)
+if (($dstatus | Select-String -SimpleMatch "OfficeAccess" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'AccessVL'; $2013kmskey = 'NG2JY-H4JBT-HQXYP-78QH9-4JM2D'; Office2013-V2R} #For Office 2013Standalone (Access)
+if (($dstatus | Select-String -SimpleMatch "OfficePublisher" | Measure-Object).Count -gt 0 -and $matchingOffice2013Retail -gt 0 ) {$licName = 'PublisherVL'; $2013kmskey = 'PN2WF-29XG2-T9HJ7-JQPJR-FCXK4'; Office2013-V2R} #For Office 2013Standalone (Publisher)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
