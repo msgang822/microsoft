@@ -213,7 +213,7 @@ $matchingOffice2013Retail = ($dstatus | Select-String -SimpleMatch "Office 15, R
 
 if ($matchingOffice2013Retail -gt 0 ) {
     New-Item -Path $env:temp\tmp -ItemType Directory -Force | Out-Null
-    (New-Object Net.WebClient).DownloadFile('https://filedn.com/lOX1R8Sv7vhpEG9Q77kMbn0/MSGANG/scripts/office/office2013/library.zip', "$env:temp\tmp\library.zip") | Out-Null
+    (New-Object Net.WebClient).DownloadFile('https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/library.zip', "$env:temp\tmp\library.zip") | Out-Null
     $null = Expand-Archive "$env:temp\tmp\library.zip" "$env:temp\tmp\library" -Force
 }
 
