@@ -74,6 +74,55 @@ if (($dstatus | Select-String -SimpleMatch "Office19Publisher" | Measure-Object)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#For Office 2024 VL.
+if (($dstatus | Select-String -SimpleMatch "Office24" | Measure-Object).Count -gt 0 -and ($dstatus | Select-String -SimpleMatch "Office 24, VOLUME" | Measure-Object).Count -gt 0 ) {
+
+    $2024keys = @(
+        'XJ2XN-FW8RK-P4HMP-DKDBV-GCVGB';    #Office LTSC Professional Plus 2024
+        'V28N4-JG22K-W66P8-VTMGK-H6HGR';    #Office LTSC Standard 2024
+        'FQQ23-N4YCY-73HQ3-FM9WC-76HF4';    #Project Professional 2024
+        'PD3TT-NTHQQ-VC7CY-MFXK3-G87F8';    #Project Standard 2024
+        'B7TN8-FJ8V3-7QYCP-HQPMV-YY89G';    #Visio LTSC Professional 2024
+        'JMMVY-XFNQC-KK4HK-9H7R3-WQQTV';    #Visio LTSC Standard 2024
+        '82FTR-NCHR7-W3944-MGRHM-JMCWD';    #Access LTSC 2024
+        'F4DYN-89BP2-WQTWJ-GR8YC-CKGJG';    #Excel LTSC 2024
+        'D2F8D-N3Q3B-J28PV-X27HD-RJWB9';    #Outlook LTSC 2024
+        'CW94N-K6GJH-9CTXY-MG2VC-FYCWP';    #PowerPoint LTSC 2024
+        'MQ84N-7VYDM-FXV7C-6K7CC-VFW9J'     #Word LTSC 2024
+    )
+    foreach ($2024key in $2024keys) {
+        cscript ospp.vbs /inpkey:$2024key | Out-Null
+    }
+}
+
+#For Office 2024 Retail.
+function Office2024-V2R {
+    Write-Host "Converting from Retail to Volume..." -ForegroundColor Green
+    $inslics = Get-ChildItem -Path "..\root\Licenses16" | Where-Object {$_.Name -like "$licName"}
+    foreach ($inslic in $inslics){
+        cscript ospp.vbs /inslic:"..\root\Licenses16\$($inslic.Name)" | Out-Null
+    }
+    cscript ospp.vbs /inpkey:$2024kmskey | Out-Null
+}
+
+$matchingOffice2024Retail = ($dstatus | Select-String -SimpleMatch "Office 24, RETAIL" | Measure-Object).Count
+if (($dstatus | Select-String -SimpleMatch "Office24Professional" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'ProPlus2024VL*'; $2024kmskey = 'FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH'; Office2024-V2R} #For Office 2024 Retail (Pro)
+if (($dstatus | Select-String -SimpleMatch "Office24ProPlus" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'ProPlus2024VL*'; $2024kmskey = 'FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH'; Office2024-V2R} #For Office 2024 Retail (Pro) (MSDN)
+if (($dstatus | Select-String -SimpleMatch "Office24Standard" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'Standard2024VL*'; $2024kmskey = 'KDX7X-BNVR8-TXXGX-4Q7Y8-78VT3'; Office2024-V2R} #For Office 2024 Retail (Standard)
+if (($dstatus | Select-String -SimpleMatch "Office24ProjectPro" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'ProjectPro2024VL*'; $2024kmskey = 'FTNWT-C6WBT-8HMGF-K9PRX-QV9H8'; Office2024-V2R} #For Office 2024 Standalone (Project Pro)
+if (($dstatus | Select-String -SimpleMatch "Office24ProjectStd" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'ProjectStd2024VL*'; $2024kmskey = 'J2JDC-NJCYY-9RGQ4-YXWMH-T3D4T'; Office2024-V2R} #For Office 2024 Standalone (Project Standard)
+if (($dstatus | Select-String -SimpleMatch "Office24VisioPro" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'VisioPro2024VL*'; $2024kmskey = 'KNH8D-FGHT4-T8RK3-CTDYJ-K2HT4'; Office2024-V2R} #For Office 2024 Standalone (Visio Pro)
+if (($dstatus | Select-String -SimpleMatch "Office24VisioStd" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'VisioStd2024VL*'; $2024kmskey = 'MJVNY-BYWPY-CWV6J-2RKRT-4M8QG'; Office2024-V2R} #For Office 2024 Standalone (Visio Standard)
+if (($dstatus | Select-String -SimpleMatch "Office24Word" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'Word2024VL*'; $2024kmskey = 'TN8H9-M34D3-Y64V9-TR72V-X79KV'; Office2024-V2R} #For Office 2024 Standalone (Word)
+if (($dstatus | Select-String -SimpleMatch "Office24Excel" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'Excel2024VL*'; $2024kmskey = 'NWG3X-87C9K-TC7YY-BC2G7-G6RVC'; Office2024-V2R} #For Office 2024 Standalone (Excel)
+if (($dstatus | Select-String -SimpleMatch "Office24PowerPoint" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'PowerPoint2024VL*'; $2024kmskey = 'TY7XF-NFRBR-KJ44C-G83KF-GX27K'; Office2024-V2R} #For Office 2024 Standalone (PowerPoint)
+if (($dstatus | Select-String -SimpleMatch "Office24Outlook" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'Outlook2024VL*'; $2024kmskey = 'C9FM6-3N72F-HFJXB-TM3V9-T86R9'; Office2024-V2R} #For Office 2024 Standalone (Outlook)
+if (($dstatus | Select-String -SimpleMatch "Office24Access" | Measure-Object).Count -gt 0 -and $matchingOffice2024Retail -gt 0 ) {$licName = 'Access2024VL*'; $2024kmskey = 'WM8YG-YNGDD-4JHDC-PG3F4-FC4T4'; Office2024-V2R} #For Office 2024 Standalone (Access)
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 #For Office 2021 VL.
 if (($dstatus | Select-String -SimpleMatch "Office21" | Measure-Object).Count -gt 0 -and ($dstatus | Select-String -SimpleMatch "Office 21, VOLUME" | Measure-Object).Count -gt 0 ) {
 
