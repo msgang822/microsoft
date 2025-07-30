@@ -138,7 +138,7 @@ if (($dstatus | Select-String -SimpleMatch "Office16" | Measure-Object).Count -g
         '9C2PK-NWTVB-JMPW8-BFT28-7FTBF';    #Excel 2016
         'R69KK-NTPKF-7M3Q4-QYBHW-6MT9B';    #Outlook 2016
         'J7MQP-HNJ4Y-WJ7YM-PFYGF-BY6C6';    #PowerPoint 2016
-        'F47MM-N3XJP-TQXJ9-BP99D-8837K';    #Publisher 2016
+        'F47MM-N3XJP-TQXJ9-BP99D-8K837';    #Publisher 2016
         'WXY84-JN2Q9-RBCCQ-3Q3J3-3PFJ6'     #Word 2016
     )
 
