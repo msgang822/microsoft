@@ -1,7 +1,7 @@
 <# Write-Host ========================================================================================
-Write-Host Description:    Activating Microsoft software products for FREE without additional software
-Write-Host Website:        https://msgang.com
-Write-Host Script by:      Leo Nguyen
+Write-Host Description  : Activating Microsoft software products for FREE without additional software
+Write-Host Website      : https://msgang.com
+Write-Host Script by    : Leo Nguyen
 Write-Host For detailed script execution: https://msgang.com/windows
 Write-Host ======================================================================================== #>
 
