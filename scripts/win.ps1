@@ -97,6 +97,7 @@ If ($editionx -eq 'Windows 7 Enterprise') {$productkey = '33PXH-7Y6KF-2VJC9-XBBR
 &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /skms kms.msgang.com | Out-Null
 &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ato | Out-Null
 
+Write-Host "Activating using the key: $productkey.`n" -ForegroundColor Green
 Write-Host "Product activation successful.`n" -ForegroundColor Green
 Write-Host "License status:" -ForegroundColor Yellow
 
