@@ -79,7 +79,7 @@ If ($edition -eq 'Microsoft Windows 8.1 Enterprise N') {$productkey = 'TT4HM-HN7
 
 If ($edition -eq 'Microsoft Windows 8 Pro') {$productkey = 'NG4HW-VH26C-733KW-K6F98-J8CK4'}
 If ($edition -eq 'Microsoft Windows 8 Pro N') {$productkey = 'XCVCF-2NXM9-723PB-MHCB7-2RYQQ'}
-If ($edition -eq 'Microsoft Windows 8 Enterprise') {$productkey = '	32JNW-9KQ84-P47T8-D8GGY-CWCK7'}
+If ($edition -eq 'Microsoft Windows 8 Enterprise') {$productkey = '32JNW-9KQ84-P47T8-D8GGY-CWCK7'}
 If ($edition -eq 'Microsoft Windows 8 Enterprise N') {$productkey = 'JMNMF-RHW7P-DMY6X-RF3DR-X2BQT'}
 
 If ($editionx -eq 'Microsoft Windows 10 Enterprise LTSC 2019' -or $editionx -eq 'Microsoft Windows 10 Enterprise LTSC 2021') {$productkey = 'M7XTQ-FN8P6-TTKYV-9D4CC-J462D'}
