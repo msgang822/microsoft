@@ -254,7 +254,7 @@ function OfficeActivation {
     $textbox.AppendText([Environment]::NewLine)
     $textbox.AppendText("> Website   : www.msgang.com")
     $textbox.AppendText([Environment]::NewLine)
-    $textbox.AppendText("> Copyright 2023 All rights Reserved. Design by Leo with <3<3<3")
+    $textbox.AppendText("> Copyright 2025 All rights Reserved. Designed by Leo with <3<3<3")
 
 # Event handlers when click buttons 
     $button.Add_Click({WindowsActivation})
