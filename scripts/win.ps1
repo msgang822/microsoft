@@ -86,6 +86,8 @@ If ($editionx -eq 'Microsoft Windows 10 Enterprise LTSC 2019' -or $editionx -eq 
 If ($editionx -eq 'Microsoft Windows 10 Enterprise LTSB 2016') {$productkey = 'DCPHK-NFMTC-H88MJ-PFHPY-QJ4BJ'}
 If ($editionx -eq 'Microsoft Windows 10 Enterprise 2015 LTSB') {$productkey = 'WNMTR-4C88C-JK8YV-HQ7T2-76DF9'}
 If ($editionx -eq 'Microsoft Windows 10 Enterprise Evaluation' -or $editionx -eq 'Microsoft Windows 10 Enterprise Evaluation') {$productkey = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'}
+If ($editionx -eq 'Windows 10 IoT Enterprise LTSC 2021') {$productkey = 'KBN8V-HFGQ4-MGXVD-347P6-PDQGT'}
+
 
 If ($editionx -eq 'Windows 7 Professional') {$productkey = 'FJ82H-XT6CR-J8D7P-XQJJ2-GPDD4'}
 If ($editionx -eq 'Windows 7 Enterprise') {$productkey = '33PXH-7Y6KF-2VJC9-XBBR8-HVTHH'}
