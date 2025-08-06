@@ -177,6 +177,7 @@ $xamlInput = @'
 # Download links
     $uri            = "https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/setup.exe"
     $uri2013        = "https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/bin2013.exe"
+    $uri2016        = "https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/setup16.exe"
     $activator      = 'https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/activator.bat'
     $uninstall      = "https://github.com/msgang822/microsoft/raw/refs/heads/main/files/office/setup.exe"
     $removeAllXML   = 'https://raw.githubusercontent.com/msgang822/microsoft/refs/heads/main/files/office/RemoveAll/configuration.xml'
@@ -402,19 +403,19 @@ $xamlInput = @'
             if ($radioButton2019HomeStudent.IsChecked -eq $true) {$productId = "HomeStudent2019Retail"; $productName = 'Office HomeStudent 2019'; $i++}
 
         # For Office 2016
-            if ($radioButton2016Pro.IsChecked -eq $true) {$productId = "ProfessionalRetail"; $productName = 'Office 2016 Professional Plus'; $i++}
-            if ($radioButton2016Std.IsChecked -eq $true) {$productId = "StandardRetail"; $productName = 'Office 2016 Standard'; $i++}
-            if ($radioButton2016ProjectPro.IsChecked -eq $true) {$productId = "ProjectProRetail"; $productName = 'Microsoft Project Pro 2016'; $i++}
-            if ($radioButton2016ProjectStd.IsChecked -eq $true) {$productId = "ProjectStdRetail"; $productName = 'Microsoft Project Standard 2016'; $i++}
-            if ($radioButton2016VisioPro.IsChecked -eq $true) {$productId = "VisioProRetail"; $productName = 'Microsoft Visio Pro 2016'; $i++}
-            if ($radioButton2016VisioStd.IsChecked -eq $true) {$productId = "VisioStdRetail"; $productName = 'Microsoft Visio Standard 2016'; $i++}
-            if ($radioButton2016Word.IsChecked -eq $true) {$productId = "WordRetail"; $productName = 'Microsoft Word 2016'; $i++}
-            if ($radioButton2016Excel.IsChecked -eq $true) {$productId = "ExcelRetail"; $productName = 'Microsoft Excel 2016'; $i++}
-            if ($radioButton2016PowerPoint.IsChecked -eq $true) {$productId = "PowerPointRetail"; $productName = 'Microsoft PowerPoint 2016'; $i++}
-            if ($radioButton2016Outlook.IsChecked -eq $true) {$productId = "OutlookRetail"; $productName = 'Microsoft Outlook 2016'; $i++}
-            if ($radioButton2016Publisher.IsChecked -eq $true) {$productId = "PublisherRetail"; $productName = 'Microsoft Publisher 2016'; $i++}
-            if ($radioButton2016Access.IsChecked -eq $true) {$productId = "AccessRetail"; $productName = 'Microsoft Access 2016'; $i++}
-            if ($radioButton2016OneNote.IsChecked -eq $true) {$productId = "OneNoteRetail"; $productName = 'Microsoft Onenote 2016'; $i++}
+            if ($radioButton2016Pro.IsChecked -eq $true) {$productId = "ProfessionalRetail"; $uri = $uri2016; $productName = 'Office 2016 Professional Plus'; $i++}
+            if ($radioButton2016Std.IsChecked -eq $true) {$productId = "StandardRetail"; $uri = $uri2016; $productName = 'Office 2016 Standard'; $i++}
+            if ($radioButton2016ProjectPro.IsChecked -eq $true) {$productId = "ProjectProRetail"; $uri = $uri2016; $productName = 'Microsoft Project Pro 2016'; $i++}
+            if ($radioButton2016ProjectStd.IsChecked -eq $true) {$productId = "ProjectStdRetail"; $uri = $uri2016; $productName = 'Microsoft Project Standard 2016'; $i++}
+            if ($radioButton2016VisioPro.IsChecked -eq $true) {$productId = "VisioProRetail"; $uri = $uri2016; $productName = 'Microsoft Visio Pro 2016'; $i++}
+            if ($radioButton2016VisioStd.IsChecked -eq $true) {$productId = "VisioStdRetail"; $uri = $uri2016; $productName = 'Microsoft Visio Standard 2016'; $i++}
+            if ($radioButton2016Word.IsChecked -eq $true) {$productId = "WordRetail"; $uri = $uri2016; $productName = 'Microsoft Word 2016'; $i++}
+            if ($radioButton2016Excel.IsChecked -eq $true) {$productId = "ExcelRetail"; $uri = $uri2016; $productName = 'Microsoft Excel 2016'; $i++}
+            if ($radioButton2016PowerPoint.IsChecked -eq $true) {$productId = "PowerPointRetail"; $uri = $uri2016; $productName = 'Microsoft PowerPoint 2016'; $i++}
+            if ($radioButton2016Outlook.IsChecked -eq $true) {$productId = "OutlookRetail"; $uri = $uri2016; $productName = 'Microsoft Outlook 2016'; $i++}
+            if ($radioButton2016Publisher.IsChecked -eq $true) {$productId = "PublisherRetail"; $uri = $uri2016; $productName = 'Microsoft Publisher 2016'; $i++}
+            if ($radioButton2016Access.IsChecked -eq $true) {$productId = "AccessRetail"; $uri = $uri2016; $productName = 'Microsoft Access 2016'; $i++}
+            if ($radioButton2016OneNote.IsChecked -eq $true) {$productId = "OneNoteRetail"; $uri = $uri2016; $productName = 'Microsoft Onenote 2016'; $i++}
 
         # For Office 2013
             if ($radioButton2013Pro.IsChecked -eq $true) {$productId = "ProfessionalRetail"; $uri = $uri2013; $productName = 'Office 2013 Professional Plus'; $i++}
