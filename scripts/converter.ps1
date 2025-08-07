@@ -186,6 +186,43 @@ $xamlInput = @'
         if ($radioButton2025Standard.IsChecked -eq $true) {$skuid = 'ServerStandard'; $version = 'Server2025'; $key = 'TVRH6-WHNXV-R9WG3-9XRFY-MY832'; $productName = 'Windows Server 2025 Standard';$i++}
         if ($radioButton2025Datacenter.IsChecked -eq $true) {$skuid = 'ServerDatacenter'; $version = 'Server2025'; $key = 'D764K-2NDRG-47T6Q-P8T8W-YP6DF'; $productName = 'Windows Server 2025 Datacenter';$i++}
 
+        if ($radioButton2022Standard.IsChecked -eq $true) {$skuid = 'ServerStandard'; $version = 'Server2022'; $key = 'VDYBN-27WPP-V4HQT-9VMD4-VMK7H'; $productName = 'Windows Server 2022 Standard';$i++}
+        if ($radioButton2022Datacenter.IsChecked -eq $true) {$skuid = 'ServerDatacenter'; $version = 'Server2022'; $key = 'WX4NM-KYWYW-QJJR4-XV3QB-6VM33'; $productName = 'Windows Server 2022 Datacenter';$i++}
+
+        if ($radioButton2019Standard.IsChecked -eq $true) {$skuid = 'ServerStandard'; $version = 'Server2019'; $key = 'N69G4-B89J2-4G8F4-WWYCC-J464C'; $productName = 'Windows Server 2019 Standard';$i++}
+        if ($radioButton2019Datacenter.IsChecked -eq $true) {$skuid = 'ServerDatacenter'; $version = 'Server2019'; $key = 'WMDGN-G9PQG-XVVXX-R3X43-63DFG'; $productName = 'Windows Server 2019 Datacenter';$i++}
+
+        if ($radioButton2016Standard.IsChecked -eq $true) {$skuid = 'ServerStandard'; $version = 'Server2016'; $key = 'WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY'; $productName = 'Windows Server 2016 Standard';$i++}
+        if ($radioButton2016Datacenter.IsChecked -eq $true) {$skuid = 'ServerDatacenter'; $version = 'Server2016'; $key = 'CB7KF-BWN84-R7R2Y-793K2-8XDDG'; $productName = 'Windows Server 2016 Datacenter';$i++}
+
+        if ($radioButton10Home.IsChecked -eq $true) {$skuid = 'Core'; $version = 'Windows10'; $key = 'TX9XD-98N7V-6WMQ6-BX7FG-H8Q99'; $productName = 'Windows 10 Home';$i++}
+        if ($radioButton10HomeN.IsChecked -eq $true) {$skuid = 'CoreN'; $version = 'Windows10'; $key = '3KHY7-WNT83-DGQKR-F7HPR-844BM'; $productName = 'Windows 10 Home N';$i++}
+        if ($radioButton10HomeSL.IsChecked -eq $true) {$skuid = 'CoreSingleLanguage'; $version = 'Windows10'; $key = '7HNRX-D7KGG-3K4RQ-4WPJ4-YTDFH'; $productName = 'Windows 10 Home Single Language';$i++}
+        if ($radioButton10Education.IsChecked -eq $true) {$skuid = 'Education'; $version = 'Windows10'; $key = 'NW6C2-QMPVW-D7KKK-3GKT6-VCFB2'; $productName = 'Windows 10 Education';$i++}
+        if ($radioButton10EducationN.IsChecked -eq $true) {$skuid = 'EducationN'; $version = 'Windows10'; $key = '2WH4N-8QGBV-H22JP-CT43Q-MDWWJ'; $productName = 'Windows 10 Education N';$i++}
+        if ($radioButton10Enterprise.IsChecked -eq $true) {$skuid = 'Enterprise'; $version = 'Windows10'; $key = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'; $productName = 'Windows 10 Enterprise';$i++}
+        if ($radioButton10EnterpriseN.IsChecked -eq $true) {$skuid = 'EnterpriseN'; $version = 'Windows10'; $key = 'DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4'; $productName = 'Windows 10 Enterprise N';$i++}
+        if ($radioButton10Professional.IsChecked -eq $true) {$skuid = 'Professional'; $version = 'Windows10'; $key = 'W269N-WFGWX-YVC9B-4J6C9-T83GX'; $productName = 'Windows 10 Professional';$i++}
+        if ($radioButton10ProfessionalN.IsChecked -eq $true) {$skuid = 'ProfessionalN'; $version = 'Windows10'; $key = 'MH37W-N47XK-V7XM9-C7227-GCQG9'; $productName = 'Windows 10 Professional N';$i++}
+        if ($radioButton10ProfessionalEducation.IsChecked -eq $true) {$skuid = 'ProfessionalEducation'; $version = 'Windows10'; $key = '6TP4R-GNPTD-KYYHQ-7B7DP-J447Y'; $productName = 'Windows 10 Professional Education';$i++}
+        if ($radioButton10ProfessionalEducationN.IsChecked -eq $true) {$skuid = 'ProfessionalEducationN'; $version = 'Windows10'; $key = 'YVWGF-BXNMC-HTQYQ-CPQ99-66QFC'; $productName = 'Windows 10 Professional Education N';$i++}
+        if ($radioButton10ProfessionalWorkstation.IsChecked -eq $true) {$skuid = 'ProfessionalWorkstation'; $version = 'Windows10'; $key = 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'; $productName = 'Windows 10 Professional Workstation';$i++}
+        if ($radioButton10ProfessionalWorkstationN.IsChecked -eq $true) {$skuid = 'ProfessionalWorkstation'; $version = 'Windows10'; $key = '9FNHH-K3HBT-3W4TD-6383H-6XYWF'; $productName = 'Windows 10 Professional Workstation N';$i++}
+
+        if ($radioButton11Home.IsChecked -eq $true) {$skuid = 'Core'; $version = 'Windows11'; $key = 'TX9XD-98N7V-6WMQ6-BX7FG-H8Q99'; $productName = 'Windows 11 Home';$i++}
+        if ($radioButton11HomeN.IsChecked -eq $true) {$skuid = 'CoreN'; $version = 'Windows11'; $key = '3KHY7-WNT83-DGQKR-F7HPR-844BM'; $productName = 'Windows 11 Home N';$i++}
+        if ($radioButton11HomeSL.IsChecked -eq $true) {$skuid = 'CoreSingleLanguage'; $version = 'Windows11'; $key = '7HNRX-D7KGG-3K4RQ-4WPJ4-YTDFH'; $productName = 'Windows 11 Home Single Language';$i++}
+        if ($radioButton11Education.IsChecked -eq $true) {$skuid = 'Education'; $version = 'Windows11'; $key = 'NW6C2-QMPVW-D7KKK-3GKT6-VCFB2'; $productName = 'Windows 11 Education';$i++}
+        if ($radioButton11EducationN.IsChecked -eq $true) {$skuid = 'EducationN'; $version = 'Windows11'; $key = '2WH4N-8QGBV-H22JP-CT43Q-MDWWJ'; $productName = 'Windows 11 Education N';$i++}
+        if ($radioButton11Enterprise.IsChecked -eq $true) {$skuid = 'Enterprise'; $version = 'Windows11'; $key = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'; $productName = 'Windows 11 Enterprise';$i++}
+        if ($radioButton11EnterpriseN.IsChecked -eq $true) {$skuid = 'EnterpriseN'; $version = 'Windows11'; $key = 'DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4'; $productName = 'Windows 11 Enterprise N';$i++}
+        if ($radioButton11Professional.IsChecked -eq $true) {$skuid = 'Professional'; $version = 'Windows11'; $key = 'W269N-WFGWX-YVC9B-4J6C9-T83GX'; $productName = 'Windows 11 Professional';$i++}
+        if ($radioButton11ProfessionalN.IsChecked -eq $true) {$skuid = 'ProfessionalN'; $version = 'Windows11'; $key = 'MH37W-N47XK-V7XM9-C7227-GCQG9'; $productName = 'Windows 11 Professional N';$i++}
+        if ($radioButton11ProfessionalEducation.IsChecked -eq $true) {$skuid = 'ProfessionalEducation'; $version = 'Windows11'; $key = '6TP4R-GNPTD-KYYHQ-7B7DP-J447Y'; $productName = 'Windows 11 Professional Education';$i++}
+        if ($radioButton11ProfessionalEducationN.IsChecked -eq $true) {$skuid = 'ProfessionalEducationN'; $version = 'Windows11'; $key = 'YVWGF-BXNMC-HTQYQ-CPQ99-66QFC'; $productName = 'Windows 11 Professional Education N';$i++}
+        if ($radioButton11ProfessionalWorkstation.IsChecked -eq $true) {$skuid = 'ProfessionalWorkstation'; $version = 'Windows11'; $key = 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'; $productName = 'Windows 11 Professional Workstation';$i++}
+        if ($radioButton11ProfessionalWorkstationN.IsChecked -eq $true) {$skuid = 'ProfessionalWorkstation'; $version = 'Windows11'; $key = '9FNHH-K3HBT-3W4TD-6383H-6XYWF'; $productName = 'Windows 11 Professional Workstation N';$i++}
+
 
         # Update the shared hashtable
             $sync.key = $key
