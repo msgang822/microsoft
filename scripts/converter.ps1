@@ -1,7 +1,7 @@
 # You need to have Administrator rights to run this script!
     if (-not([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
         Write-Warning "You need to have Administrator rights to run this script!`nPlease re-run this script as an Administrator in an elevated powershell prompt!"
-        Start-Process -Verb runas -FilePath powershell.exe -ArgumentList "irm install.msgang.com | iex"
+        Start-Process -Verb runas -FilePath powershell.exe -ArgumentList "irm convert.msgang.com | iex"
         break
     }
 
@@ -83,12 +83,12 @@ $xamlInput = @'
                 <TextBox x:Name="textBox3" TextWrapping="Wrap" Text="(*) The downloaded files would be saved on the current user's desktop." Canvas.Top="331" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="6" Padding="0,0,0,2"/>
                 <TextBox x:Name="textBox4" TextWrapping="Wrap" Text="(*) To activate license. Change the Mode to Activate then click Submit button." Canvas.Top="352" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="6" Padding="0,0,0,2"/>
                 <TextBox x:Name="textBox5" TextWrapping="Wrap" Text="(*) More FREE Microsoft products, please visit:" Canvas.Top="373" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" Canvas.Left="6" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,0,0,2"/>
-                <Image x:Name="image" Height="81" Width="78" Canvas.Left="35" Canvas.Top="146" Source="https://raw.githubusercontent.com/msgang822/microsoft/refs/heads/main/files/office/donate.png" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+                <Image x:Name="image" Height="81" Width="78" Canvas.Left="156" Canvas.Top="146" Source="https://raw.githubusercontent.com/msgang822/microsoft/refs/heads/main/files/office/donate.png" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden"/>
             </Canvas>
         </GroupBox>
         <Button x:Name="buttonSubmit" Content="Submit" HorizontalAlignment="Left" Margin="147,212,0,0" VerticalAlignment="Top" Width="118" Height="28" Background="#FF168E12" Foreground="White" FontFamily="Consolas" FontSize="13" FontWeight="Bold" UseLayoutRounding="True" BorderBrush="#FF168E12"/>
         <ProgressBar x:Name="progressbar" HorizontalAlignment="Left" Height="10" Margin="147,252,0,0" VerticalAlignment="Top" Width="118" IsEnabled="False" Background="{x:Null}" BorderBrush="{x:Null}"/>
-        <TextBox x:Name="textbox" TextWrapping="Wrap" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="147,277,0,0" FontFamily="Consolas" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" AllowDrop="False" Focusable="False" IsHitTestVisible="False" IsTabStop="False" IsUndoEnabled="False"/>
+        <TextBox x:Name="textbox" TextWrapping="Wrap" Width="258" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,277,0,0" FontFamily="Consolas" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" AllowDrop="False" Focusable="False" IsHitTestVisible="False" IsTabStop="False" IsUndoEnabled="False"/>
         <Label x:Name="Link1" HorizontalAlignment="Left" Margin="303,392,0,0" VerticalAlignment="Top" Width="120" FontSize='10.5' ToolTip='vmware' FontFamily="Consolas" Padding="5,5,5,2">
             <Hyperlink NavigateUri="https://msgang.com">https://msgang.com</Hyperlink>
         </Label>
@@ -125,7 +125,7 @@ $xamlInput = @'
 
         # To referece our elements we use the $sync variable from hashtable.
             $sync.Form.Dispatcher.Invoke([action] { $sync.buttonSubmit.Visibility = "Hidden" })
-            $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Text = "$($sync.UIstatus) $($sync.productName)"})
+            $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Text = "$($sync.UIstatus) Converting to $($sync.productName)"})
             $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.BorderBrush = "#FF707070" })
             $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.IsIndeterminate = $true })
             $sync.Form.Dispatcher.Invoke([action] { $sync.image.Visibility = "Visible" })
@@ -166,8 +166,6 @@ $xamlInput = @'
     $sync.textbox = $textbox
     $sync.image = $image
     $sync.buttonSubmit = $buttonSubmit
-    $sync.DebugPreference = $DebugPreference
-    $sync.VerbosePreference = $VerbosePreference
 
 # Build a runspace
     $runspace = [runspacefactory]::CreateRunspace()
@@ -186,6 +184,8 @@ $xamlInput = @'
         $i = 0
 
         if ($radioButton2025Standard.IsChecked -eq $true) {$skuid = 'ServerStandard'; $version = 'Server2025'; $key = 'TVRH6-WHNXV-R9WG3-9XRFY-MY832'; $productName = 'Windows Server 2025 Standard';$i++}
+        if ($radioButton2025Datacenter.IsChecked -eq $true) {$skuid = 'ServerDatacenter'; $version = 'Server2025'; $key = 'D764K-2NDRG-47T6Q-P8T8W-YP6DF'; $productName = 'Windows Server 2025 Datacenter';$i++}
+
 
         # Update the shared hashtable
             $sync.key = $key
