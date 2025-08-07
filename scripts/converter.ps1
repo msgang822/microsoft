@@ -1,465 +1,209 @@
-#===============================================================
-#Name:           Windows Converter.
-#Description:    Convert all Windows Editions for free.
-#Website:        https://msgang.com
-#Script by:      Leo Nguyen
-#For detailed script execution: https://msgang.com/converter
-#===============================================================
+# You need to have Administrator rights to run this script!
+    if (-not([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+        Write-Warning "You need to have Administrator rights to run this script!`nPlease re-run this script as an Administrator in an elevated powershell prompt!"
+        Start-Process -Verb runas -FilePath powershell.exe -ArgumentList "irm install.msgang.com | iex"
+        break
+    }
 
+# Load ddls to the current session.
+    Add-Type -AssemblyName PresentationFramework, System.Drawing, PresentationFramework, System.Windows.Forms, WindowsFormsIntegration, PresentationCore
+    [System.Windows.Forms.Application]::EnableVisualStyles()
 
-if (-not([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Write-Warning "You need to have Administrator rights to run this script!`nPlease re-run this script as an Administrator in an elevated powershell prompt!"
-    break
-}
-[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
-[void] [System.Reflection.Assembly]::LoadWithPartialName("PresentationFramework")
-[void] [Reflection.Assembly]::LoadWithPartialName("PresentationCore")
+# Place your xaml code from Visual Studio in here string (between @ symbols)
+# $xamlinput = @'<xaml code here'@
 
-$Form = New-Object System.Windows.Forms.Form    
-$Form.Size = New-Object System.Drawing.Size(890,470)
-$Form.StartPosition = "CenterScreen" #loads the window in the center of the screen
-$Form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedToolWindow #modifies the window border
-$Form.Text = "Microsoft Windows Converter - www.msgang.com" #window description
-$Form.ShowInTaskbar = $True
-$Form.KeyPreview = $True
-$Form.AutoSize = $True
-$Form.FormBorderStyle = 'Fixed3D'
-$Form.MaximizeBox = $False
-$Form.MinimizeBox = $False
-$Form.ControlBox = $True
-$Form.Icon = $Icon
+$xamlInput = @'
+<Window x:Class="convert.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:convert"
+        mc:Ignorable="d"
+        Title="Microsoft Installation Tool - www.msgang.com" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="https://msgang.com/wp-content/uploads/2025/07/images.png" Width="1065" Height="500">
+    <Grid Width="1045" Height="480" VerticalAlignment="Top">
+        <GroupBox x:Name="groupBoxMicrosoftOffice" Header="Select a edition to conversion:" BorderBrush="#FF164A69" FontFamily="Consolas" FontSize="11" Width="1025" Height="440" VerticalAlignment="Top" Margin="0,10,0,0">
+            <Canvas HorizontalAlignment="Left">
+                <Rectangle Height="106" Stroke="#FF1B0F0F" Width="135" UseLayoutRounding="True" RadiusX="5" RadiusY="5" Canvas.Left="11" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="Label2025" Content="SERVER 2025" FontWeight="Bold" Canvas.Left="19" Background="#FF1B0F0F" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="8" Foreground="White" Padding="8,4,8,4"/>
+                <RadioButton x:Name="radioButton2025Standard" Content="Standard " Canvas.Left="19" Canvas.Top="35" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,5,0,0"/>
+                <RadioButton x:Name="radioButton2025Datacenter" Content="Datacenter" Canvas.Left="19" Canvas.Top="54" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,5,0,0"/>
+                <RadioButton x:Name="radioButton2025StandardEval" Content="Standard Eval" Canvas.Left="19" Canvas.Top="73" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,5,0,0"/>
+                <RadioButton x:Name="radioButton2025DatacenterEval" Content="Datacenter Eval" Canvas.Left="19" Canvas.Top="99" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Rectangle Height="106" Stroke="#FF1B0F0F" Width="150" UseLayoutRounding="True" RadiusX="5" RadiusY="5" Canvas.Top="20" HorizontalAlignment="Center" Canvas.Left="156" VerticalAlignment="Top"/>
+                <Label x:Name="Label2022" Content="SERVER 2022" FontWeight="Bold" Background="#FF1B0F0F" Foreground="White" Padding="8,4,8,4" Canvas.Left="170" HorizontalAlignment="Left" Canvas.Top="8" VerticalAlignment="Top"/>
+                <RadioButton VerticalContentAlignment="Center" x:Name="radioButton2022Standard" Content="Standard " Canvas.Top="39" Canvas.Left="170" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <RadioButton VerticalContentAlignment="Center" Padding="5,5,5,5" x:Name="radioButton2022Datacenter" IsChecked="False" Content="Datacenter " Canvas.Top="53" Canvas.Left="170" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <RadioButton VerticalContentAlignment="Center" Padding="5,5,5,5" x:Name="radioButton2022StandardEval" IsChecked="False" Content="Standard Eval" Canvas.Top="74" Canvas.Left="170" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <RadioButton VerticalContentAlignment="Center" Padding="5,5,5,5" x:Name="radioButton2022DatacenterEval" IsChecked="False" Content="Datacenter Eval" Canvas.Top="92" Canvas.Left="170" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Rectangle Height="106" Stroke="#FF1B0F0F" Width="150" UseLayoutRounding="True" RadiusX="5" RadiusY="5" Canvas.Left="319" Canvas.Top="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label x:Name="Label2019" Content="SERVER 2019" FontWeight="Bold" Canvas.Left="167" Canvas.Top="8" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" UseLayoutRounding="True" Padding="8,4,8,4" ScrollViewer.CanContentScroll="True" Background="#FF1B0F0F" Margin="160,0,0,0"/>
+                <RadioButton x:Name="radioButton2019Standard" Content="Standard " VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="172" Canvas.Top="35" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton2019Datacenter" Content="Datacenter " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Left="172" Canvas.Top="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton2019StandardEval" Content="Standard Eval" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Left="172" Canvas.Top="69" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton2019DatacenterEval" Content="Datacenter Eval" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Left="172" Canvas.Top="87" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="160,5,0,0"/>
+                <Rectangle Height="107" Stroke="#FF1B0F0F" Width="150" UseLayoutRounding="True" RadiusX="5" RadiusY="5" Canvas.Left="485" Canvas.Top="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label x:Name="Label2016" Content="SERVER 2016" FontWeight="Bold" Canvas.Left="334" Background="#FF1B0F0F" Canvas.Top="8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Padding="8,4,8,4" Margin="160,0,0,0"/>
+                <RadioButton x:Name="radioButton2016Standard" Content="Standard " IsChecked="False" Padding="5,5,5,5" Canvas.Left="330" Canvas.Top="30" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton2016Datacenter" Content="Datacenter " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Left="330" Canvas.Top="50" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton2016StandardEval" Content="Standard Eval" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Left="330" Canvas.Top="70" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton2016DatacenterEval" Content="Datacenter Eval" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Left="330" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <Rectangle Height="290" Stroke="#FF1B0F0F" Width="172" UseLayoutRounding="True" RadiusX="5" RadiusY="5" Canvas.Left="650" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="Label10" Content="WINDOWS 10" FontWeight="Bold" Canvas.Left="500" Background="#FF1B0F0F" Canvas.Top="8" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="8,4,8,4" Foreground="White" Margin="160,0,0,0"/>
+                <RadioButton x:Name="radioButton10Home" Content="Home" IsChecked="False" Padding="5,5,5,5" VerticalContentAlignment="Center" Canvas.Left="498" Canvas.Top="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10HomeN" Content="Home N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="50" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10HomeSL" Content="Home SL" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="70" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10Education" Content="Education " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="90" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10EducationN" Content="Education N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="110" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10Enterprise" Content="Enterprise " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="130" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10EnterpriseN" Content="Enterprise N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="150" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10Professional" Content="Professional" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="170" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10ProfessionalN" Content="Professional N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="190" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10ProfessionalEducation" Content="Pro Education" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="207" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10ProfessionalEducationN" Content="Pro Education N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="230" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10ProfessionalWorkstation" Content="Pro for Workstation" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="250" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <RadioButton x:Name="radioButton10ProfessionalWorkstationN" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Content="Pro for Workstation N" Canvas.Top="270" Canvas.Left="498" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="160,5,0,0"/>
+                <Rectangle Height="290" Stroke="#FF1B0F0F" Width="172" UseLayoutRounding="True" RadiusX="5" RadiusY="5" Canvas.Left="835" Canvas.Top="20" VerticalAlignment="Top"/>
+                <Label x:Name="Label11" Content="WINDOWS 11" FontWeight="Bold" Canvas.Left="667" Background="#FF1B0F0F" Canvas.Top="8" VerticalAlignment="Center" Foreground="White" Padding="8,4,8,4" Margin="160,0,50,0"/>
+                <RadioButton x:Name="radioButton11Home" Content="Home" IsChecked="False" Padding="5,5,5,5" VerticalContentAlignment="Center" Canvas.Left="670" Canvas.Top="30" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11HomeN" Content="Home N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="50" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11HomeSL" Content="Home SL" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="70" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11Education" Content="Education " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="90" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11EducationN" Content="Education N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="110" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11Enterprise" Content="Enterprise " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="130" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11EnterpriseN" Content="Enterprise N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="150" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11Professional" Content="Professional " VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="170" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11ProfessionalN" Content="Professional N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="190" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11ProfessionalEducation" Content="Pro Education" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="210" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11ProfessionalEducationN" Content="Pro Education N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="230" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11ProfessionalWorkstation" Content="Pro for Workstation" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="250" Canvas.Left="670" VerticalAlignment="Center" Margin="180,5,50,0"/>
+                <RadioButton x:Name="radioButton11ProfessionalWorkstationN" Content="Pro for Workstation N" VerticalContentAlignment="Center" IsChecked="False" Padding="5,5,5,5" Canvas.Top="275" Canvas.Left="850" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="textBox1" TextWrapping="Wrap" Text="(*) By default, this script installs the 64-bit version in English." Canvas.Top="286" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="6" Padding="0,0,0,2"/>
+                <TextBox x:Name="textBox2" TextWrapping="Wrap" Text="(*) Default mode is Install. If you want to download only, select Download mode." Canvas.Top="310" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="6" Padding="0,0,0,2"/>
+                <TextBox x:Name="textBox3" TextWrapping="Wrap" Text="(*) The downloaded files would be saved on the current user's desktop." Canvas.Top="331" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="6" Padding="0,0,0,2"/>
+                <TextBox x:Name="textBox4" TextWrapping="Wrap" Text="(*) To activate license. Change the Mode to Activate then click Submit button." Canvas.Top="352" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="6" Padding="0,0,0,2"/>
+                <TextBox x:Name="textBox5" TextWrapping="Wrap" Text="(*) More FREE Microsoft products, please visit:" Canvas.Top="373" FontSize="10.5" BorderBrush="{x:Null}" Background="{x:Null}" Canvas.Left="6" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,0,0,2"/>
+                <Image x:Name="image" Height="81" Width="78" Canvas.Left="35" Canvas.Top="146" Source="https://raw.githubusercontent.com/msgang822/microsoft/refs/heads/main/files/office/donate.png" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+            </Canvas>
+        </GroupBox>
+        <Button x:Name="buttonSubmit" Content="Submit" HorizontalAlignment="Left" Margin="147,212,0,0" VerticalAlignment="Top" Width="118" Height="28" Background="#FF168E12" Foreground="White" FontFamily="Consolas" FontSize="13" FontWeight="Bold" UseLayoutRounding="True" BorderBrush="#FF168E12"/>
+        <ProgressBar x:Name="progressbar" HorizontalAlignment="Left" Height="10" Margin="147,252,0,0" VerticalAlignment="Top" Width="118" IsEnabled="False" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <TextBox x:Name="textbox" TextWrapping="Wrap" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="147,277,0,0" FontFamily="Consolas" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" AllowDrop="False" Focusable="False" IsHitTestVisible="False" IsTabStop="False" IsUndoEnabled="False"/>
+        <Label x:Name="Link1" HorizontalAlignment="Left" Margin="303,392,0,0" VerticalAlignment="Top" Width="120" FontSize='10.5' ToolTip='vmware' FontFamily="Consolas" Padding="5,5,5,2">
+            <Hyperlink NavigateUri="https://msgang.com">https://msgang.com</Hyperlink>
+        </Label>
 
-$convert = {
+    </Grid>
+</Window>
+'@
+
+# Store form objects (variables) in PowerShell
+
+    [xml]$xaml = $xamlInput -replace '^<Window.*', '<Window' -replace 'mc:Ignorable="d"','' -replace "x:Name",'Name'
+    $xmlReader = (New-Object System.Xml.XmlNodeReader $xaml)
+    $Form = [Windows.Markup.XamlReader]::Load( $xmlReader)
+
+    $xaml.SelectNodes("//*[@Name]") | ForEach-Object -Process {
+        Set-Variable -Name ($_.Name) -Value $Form.FindName($_.Name)
+    }
+
+    $Link1.Add_PreviewMouseDown({[system.Diagnostics.Process]::start('https://msgang.com')})
+
+# Prepiaration for download and install
+    function PreparingOffice {
+
+        $workingDir = New-Item -Path $env:temp\temp\$version\$skuid -ItemType Directory -Force
+        Set-Location $workingDir
+        $filePath = "$env:temp\temp\$version\$skuid\$skuid.zip"
+
+        $sync.workingDir = $workingDir
+        $sync.filePath = $filePath
+    }
     
-   Write-Host ===============================================================
-   Write-Host Description:    Upgrade, downgrade or convert all Windows Editions for free.
-   Write-Host Website:        https://msgang.com
-   Write-Host Script by:      Leo Nguyen
-   Write-Host For detailed script execution: https://msgang.com/converter
-   Write-Host ===============================================================
+# Creating script block for download and install
+    $scriptBlock = {
 
-   Write-Host '---------------------------------------------------------------'
-   Write-Host "Processing...It could take a while, please be patient."                 
-   Write-Host
-   $version = (Get-CimInstance Win32_OperatingSystem).Caption
-   New-Item -Path $env:temp\temp\$skuid -ItemType Directory -Force
-   Set-Location $env:temp\temp\$skuid
-   $uri = "https://raw.githubusercontent.com/bonben365/microsoft/main/Files/$skuid.zip"
-   $filePath = "$env:temp\temp\$skuid\$skuid.zip"
-   (New-Object Net.WebClient).DownloadFile($uri, $filePath)
-   Expand-Archive .\*.zip -DestinationPath . -Force | Out-Null
-   Copy-Item -Path $sku $env:windir\system32\spp\tokens\skus\ -Recurse -Force -ErrorAction SilentlyContinue
-   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /rilc | Out-Null
-   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /upk | Out-Null
-   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ckms | Out-Null
-   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /cpky | Out-Null
-   # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /skms kms.msgang.com | Out-Null
-   &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ipk $key
-   # &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ato | Out-Null
-   Write-Host
-   Write-Host "Done............" -ForegroundColor Green 
-   Write-Host
-   Write-Host "Close the window to exit." -ForegroundColor Green 
+        # To referece our elements we use the $sync variable from hashtable.
+            $sync.Form.Dispatcher.Invoke([action] { $sync.buttonSubmit.Visibility = "Hidden" })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Text = "$($sync.UIstatus) $($sync.productName)"})
+            $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.BorderBrush = "#FF707070" })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.IsIndeterminate = $true })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.image.Visibility = "Visible" })
 
-   #Cleanup
-   #Set-Location $env:temp
-   #Remove-Item -Path $env:temp\temp -Recurse -Force
-}
-############################################## Start functions
-function microsoftInstaller {
-   try {
-      #Windows 10     
-      if ($10Home.Checked -eq $true) {$sku = 'Core'; $skuid = 'skus'; $key = 'TX9XD-98N7V-6WMQ6-BX7FG-H8Q99'; Invoke-Command $convert}
-      if ($10HomeSL.Checked -eq $true) {$sku = 'CoreSingleLanguage'; $skuid = 'skus'; $key = '7HNRX-D7KGG-3K4RQ-4WPJ4-YTDFH'; Invoke-Command $convert}
-      if ($10Pro.Checked -eq $true) {$sku = 'Professional'; $skuid = 'skus'; $key = 'W269N-WFGWX-YVC9B-4J6C9-T83GX'; Invoke-Command $convert}
-      if ($10ProWorkstation.Checked -eq $true) {$sku = 'ProfessionalWorkstation'; $skuid = 'skus'; $key = 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'; Invoke-Command $convert}
-      if ($10Enterprise.Checked -eq $true) {$sku = 'Enterprise'; $skuid = 'skus'; $key = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'; Invoke-Command $convert}
-      if ($10Education.Checked -eq $true) {$sku = 'Education'; $skuid = 'skus'; $key = 'NW6C2-QMPVW-D7KKK-3GKT6-VCFB2'; Invoke-Command $convert}
-      if ($10ProEducation.Checked -eq $true) {$sku = 'ProfessionalEducation'; $skuid = 'skus'; $key = '6TP4R-GNPTD-KYYHQ-7B7DP-J447Y'; Invoke-Command $convert}
+            Set-Location -Path $($sync.workingDir)
 
-      #Windows 11
-      if ($11Home.Checked -eq $true) {$sku = 'Core'; $skuid = 'sku11'; $key = 'TX9XD-98N7V-6WMQ6-BX7FG-H8Q99'; Invoke-Command $convert}
-      if ($11HomeSL.Checked -eq $true) {$sku = 'CoreSingleLanguage'; $skuid = 'sku11'; $key = '7HNRX-D7KGG-3K4RQ-4WPJ4-YTDFH'; Invoke-Command $convert}
-      if ($11Pro.Checked -eq $true) {$sku = 'Professional'; $skuid = 'sku11'; $key = 'W269N-WFGWX-YVC9B-4J6C9-T83GX'; Invoke-Command $convert}
-      if ($11ProWorkstation.Checked -eq $true) {$sku = 'ProfessionalWorkstation'; $skuid = 'sku11'; $key = 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'; Invoke-Command $convert}
-      if ($11Enterprise.Checked -eq $true) {$sku = 'Enterprise'; $skuid = 'sku11'; $key = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'; Invoke-Command $convert}
-      if ($11Education.Checked -eq $true) {$sku = 'Education'; $skuid = 'sku11'; $key = 'NW6C2-QMPVW-D7KKK-3GKT6-VCFB2'; Invoke-Command $convert}
-      if ($11ProEducation.Checked -eq $true) {$sku = 'ProfessionalEducation'; $skuid = 'sku11'; $key = '6TP4R-GNPTD-KYYHQ-7B7DP-J447Y'; Invoke-Command $convert}
+            (New-Object Net.WebClient).DownloadFile("https://github.com/msgang822/microsoft/raw/refs/heads/main/files/windows/skus/$($sync.version)/$($sync.skuid).zip", $($sync.filePath))
+            Expand-Archive .\*.zip -DestinationPath . -Force | Out-Null
+            Copy-Item -Path $($sync.skuid) $env:windir\system32\spp\tokens\skus\ -Recurse -Force -ErrorAction SilentlyContinue
 
-      #Windows 10 Evaluation
-      if ($10Eval2Pro.Checked -eq $true) {$sku = 'Professional'; $skuid = 'skus'; $key = 'W269N-WFGWX-YVC9B-4J6C9-T83GX'; Invoke-Command $convert}
-      if ($10Eval2Enterprise.Checked -eq $true) {$sku = 'Enterprise'; $skuid = 'skus'; $key = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'; Invoke-Command $convert}
-      if ($10Eval2ProWorkstation.Checked -eq $true) {$sku = 'ProfessionalWorkstation'; $skuid = 'skus'; $key = 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'; Invoke-Command $convert}
-      if ($10Eval2LTSC2019Full.Checked -eq $true) {$sku = 'EnterpriseS'; $skuid = 'ltsc2019'; $key = 'M7XTQ-FN8P6-TTKYV-9D4CC-J462D'; Invoke-Command $convert}
-      if ($10Eval2LTSC2021Full.Checked -eq $true) {$sku = 'EnterpriseS'; $skuid = 'ltsc2021'; $key = 'M7XTQ-FN8P6-TTKYV-9D4CC-J462D'; Invoke-Command $convert}
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /rilc | Out-Null
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /upk | Out-Null
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ckms | Out-Null
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /cpky | Out-Null
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /skms kms.msgang.com | Out-Null
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ipk $($sync.key)
+            &$env:windir\system32\cscript.exe $env:windir\system32\slmgr.vbs /ato | Out-Null
 
-      #Windows 10 LTSC Evaluation
-      if ($10LTSCEval2Pro.Checked -eq $true) {$sku = 'Professional'; $skuid = 'skus'; $key = 'W269N-WFGWX-YVC9B-4J6C9-T83GX'; Invoke-Command $convert}
-      if ($10LTSCEval2Enterprise.Checked -eq $true) {$sku = 'Enterprise'; $skuid = 'skus'; $key = 'NPPR9-FWDCX-D2C8J-H872K-2YT43'; Invoke-Command $convert}
-      if ($10LTSCEval2ProWorkstation.Checked -eq $true) {$sku = 'ProfessionalWorkstation'; $skuid = 'skus'; $key = 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J'; Invoke-Command $convert}
-      if ($10LTSCEval2LTSC2019Full.Checked -eq $true) {$sku = 'EnterpriseS'; $skuid = 'ltsc2019'; $key = 'M7XTQ-FN8P6-TTKYV-9D4CC-J462D'; Invoke-Command $convert}
-      if ($10LTSCEval2LTSC2021Full.Checked -eq $true) {$sku = 'EnterpriseS'; $skuid = 'ltsc2021'; $key = 'M7XTQ-FN8P6-TTKYV-9D4CC-J462D'; Invoke-Command $convert}
+            Set-Location ..
+            Set-Location ..
+            Remove-Item * -Recurse -Force
+                
+        # Bring back our Button, set the Label and ProgressBar, we're done..
+            $sync.Form.Dispatcher.Invoke([action] { $sync.image.Visibility = "Hidden" })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.buttonSubmit.Visibility = 'Visible' })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.buttonSubmit.Content = 'Submit' })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Text = 'Completed' })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.IsIndeterminate = $false })
+            $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.Value = '100' })
+    }
 
-      #Windows Server 2016 Editions
-      if ($srv2016std.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2016'; $key = 'WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY'; Invoke-Command $convert}
-      if ($srv2016data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2016'; $key = 'CB7KF-BWN84-R7R2Y-793K2-8XDDG'; Invoke-Command $convert}
-      if ($srv2016eval2std.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2016'; $key = 'WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY'; Invoke-Command $convert}
-      if ($srv2016eval2data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2016'; $key = 'CB7KF-BWN84-R7R2Y-793K2-8XDDG'; Invoke-Command $convert}
+# Share info between runspaces
+    $sync = [hashtable]::Synchronized(@{})
+    $sync.runspace = $runspace
+    $sync.host = $host
+    $sync.Form = $Form
+    $sync.ProgressBar = $ProgressBar
+    $sync.textbox = $textbox
+    $sync.image = $image
+    $sync.buttonSubmit = $buttonSubmit
+    $sync.DebugPreference = $DebugPreference
+    $sync.VerbosePreference = $VerbosePreference
 
-      #Windows Server 2019 Editions
-      if ($srv2019std.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2019'; $key = 'N69G4-B89J2-4G8F4-WWYCC-J464C'; Invoke-Command $convert}
-      if ($srv2019data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2019'; $key = 'WMDGN-G9PQG-XVVXX-R3X43-63DFG'; Invoke-Command $convert}
-      if ($srv2019eval2std.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2019'; $key = 'N69G4-B89J2-4G8F4-WWYCC-J464C'; Invoke-Command $convert}
-      if ($srv2019eval2data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2019'; $key = 'WMDGN-G9PQG-XVVXX-R3X43-63DFG'; Invoke-Command $convert}
+# Build a runspace
+    $runspace = [runspacefactory]::CreateRunspace()
+    $runspace.ApartmentState = 'STA'
+    $runspace.ThreadOptions = 'ReuseThread'
+    $runspace.Open()
 
-      #Windows Server 2022 Editions
-      if ($srv2022std.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2022'; $key = 'VDYBN-27WPP-V4HQT-9VMD4-VMK7H'; Invoke-Command $convert}
-      if ($srv2022data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2022'; $key = 'WX4NM-KYWYW-QJJR4-XV3QB-6VM33'; Invoke-Command $convert}
-      if ($srv2022eval2std.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2022'; $key = 'VDYBN-27WPP-V4HQT-9VMD4-VMK7H'; Invoke-Command $convert}
-      if ($srv2022eval2data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2022'; $key = 'WX4NM-KYWYW-QJJR4-XV3QB-6VM33'; Invoke-Command $convert}
+# Add shared data to the runspace
+    $runspace.SessionStateProxy.SetVariable("sync", $sync)
 
-      #Windows Server 2012 R2 Editions
-      if ($srv2012rstd.Checked -eq $true) {$sku = 'ServerStandard'; $skuid = 'srv2012r2'; $key = 'D2N9P-3P6X9-2R39C-7RTCD-MDVJX'; Invoke-Command $convert}
-      if ($srv2012r2data.Checked -eq $true) {$sku = 'ServerDatacenter'; $skuid = 'srv2012r2'; $key = 'W3GGN-FT8W3-Y4M27-J84CP-Q3VJ9'; Invoke-Command $convert}
+# Create a Powershell instance
+    $PSIinstance = [powershell]::Create().AddScript($scriptBlock)
+    $PSIinstance.Runspace = $runspace
 
-   } #end try
-   catch {
-      $outputBox.text = "`nOperation could not be completed"
-   }
-} 
-############################################## end functions
-############################################## Start group boxes
+    $buttonSubmit.Add_Click( {
+        $i = 0
 
-$groupbox10 = New-Object System.Windows.Forms.GroupBox
-$groupbox10.Location = New-Object System.Drawing.Size(10,10) 
-$groupbox10.size = New-Object System.Drawing.Size(170,180) 
-$groupbox10.text = "Windows 10"
-$Form.Controls.Add($groupbox10)
+        if ($radioButton2025Standard.IsChecked -eq $true) {$skuid = 'ServerStandard'; $version = 'Server2025'; $key = 'TVRH6-WHNXV-R9WG3-9XRFY-MY832'; $productName = 'Windows Server 2025 Standard';$i++}
 
-$groupbox11 = New-Object System.Windows.Forms.GroupBox
-$groupbox11.Location = New-Object System.Drawing.Size(190,10) 
-$groupbox11.size = New-Object System.Drawing.Size(170,180) 
-$groupbox11.text = "Windows 11"
-$Form.Controls.Add($groupbox11)
+        # Update the shared hashtable
+            $sync.key = $key
+            $sync.version = $version
+            $sync.skuid = $skuid
+            $sync.UIstatus = $UIstatus
+            $sync.productName = $productName
 
-$groupboxeval = New-Object System.Windows.Forms.GroupBox
-$groupboxeval.Location = New-Object System.Drawing.Size(370,10) 
-$groupboxeval.size = New-Object System.Drawing.Size(220,180) 
-$groupboxeval.text = "Windows 10 Enterprise Evaluation to:"
-$Form.Controls.Add($groupboxeval)
+            if ($i -eq '1') {
+                PreparingOffice
+                $PSIinstance = [powershell]::Create().AddScript($scriptBlock)
+                $PSIinstance.Runspace = $runspace
+                $PSIinstance.BeginInvoke()
+            } else {
+                $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Foreground = "Red" })
+                $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.FontWeight = "Bold" })
+                $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Text = "Please select an edition." })
+        }
+    })
 
-$groupbox10LTSCeval = New-Object System.Windows.Forms.GroupBox
-$groupbox10LTSCeval.Location = New-Object System.Drawing.Size(600,10) 
-$groupbox10LTSCeval.size = New-Object System.Drawing.Size(250,180) 
-$groupbox10LTSCeval.text = "Windows 10 Enterprise LTSC Evaluation to:"
-$Form.Controls.Add($groupbox10LTSCeval)
-
-$groupboxsrv2016 = New-Object System.Windows.Forms.GroupBox
-$groupboxsrv2016.Location = New-Object System.Drawing.Size(10,200) 
-$groupboxsrv2016.size = New-Object System.Drawing.Size(170,130) 
-$groupboxsrv2016.text = "Windows Server 2016"
-$Form.Controls.Add($groupboxsrv2016)
-
-$groupboxsrv2019 = New-Object System.Windows.Forms.GroupBox
-$groupboxsrv2019.Location = New-Object System.Drawing.Size(190,200) 
-$groupboxsrv2019.size = New-Object System.Drawing.Size(170,130) 
-$groupboxsrv2019.text = "Windows Server 2019"
-$Form.Controls.Add($groupboxsrv2019)
-
-$groupboxsrv2022 = New-Object System.Windows.Forms.GroupBox
-$groupboxsrv2022.Location = New-Object System.Drawing.Size(370,200) 
-$groupboxsrv2022.size = New-Object System.Drawing.Size(170,130) 
-$groupboxsrv2022.text = "Windows Server 2022"
-$Form.Controls.Add($groupboxsrv2022)
-
-$groupboxsrv2012r2 = New-Object System.Windows.Forms.GroupBox
-$groupboxsrv2012r2.Location = New-Object System.Drawing.Size(550,200) 
-$groupboxsrv2012r2.size = New-Object System.Drawing.Size(170,130) 
-$groupboxsrv2012r2.text = "Windows Server 2012 R2"
-$Form.Controls.Add($groupboxsrv2012r2)
-
-# label
-$objLabel = New-Object System.Windows.Forms.label
-$objLabel.Location = New-Object System.Drawing.Size(10,350)
-$objLabel.Size = New-Object System.Drawing.Size(400,15)
-$objLabel.Text = "(*)You can convert, upgrade or switch from or to any editions of Windows."
-$Form.Controls.Add($objLabel)
-
-############################################## end group boxes
-############################################## Start Windows 10 checkboxes
-$10Home = New-Object System.Windows.Forms.RadioButton
-$10Home.Location = New-Object System.Drawing.Size(10,20)
-$10Home.Size = New-Object System.Drawing.Size(140,20)
-$10Home.Checked = $false
-$10Home.Text = "Home"
-$groupbox10.Controls.Add($10Home)
-
-$10HomeSL = New-Object System.Windows.Forms.RadioButton
-$10HomeSL.Location = New-Object System.Drawing.Size(10,40)
-$10HomeSL.Size = New-Object System.Drawing.Size(140,20)
-$10HomeSL.Text = "Home Single Language"
-$groupbox10.Controls.Add($10HomeSL)
-
-$10Pro = New-Object System.Windows.Forms.RadioButton
-$10Pro.Location = New-Object System.Drawing.Size(10,60)
-$10Pro.Size = New-Object System.Drawing.Size(140,20)
-$10Pro.Text = "Pro"
-$groupbox10.Controls.Add($10Pro)
-
-$10ProWorkstation = New-Object System.Windows.Forms.RadioButton
-$10ProWorkstation.Location = New-Object System.Drawing.Size(10,80)
-$10ProWorkstation.Size = New-Object System.Drawing.Size(140,20)
-$10ProWorkstation.AutoSize = $true
-$10ProWorkstation.Text = "Pro for Workstation"
-$groupbox10.Controls.Add($10ProWorkstation)
-
-$10Enterprise = New-Object System.Windows.Forms.RadioButton
-$10Enterprise.Location = New-Object System.Drawing.Size(10,100)
-$10Enterprise.Size = New-Object System.Drawing.Size(140,20)
-$10Enterprise.Text = "Enterprise"
-$groupbox10.Controls.Add($10Enterprise)
-
-$10Education = New-Object System.Windows.Forms.RadioButton
-$10Education.Location = New-Object System.Drawing.Size(10,120)
-$10Education.Size = New-Object System.Drawing.Size(140,20)
-$10Education.Text = "Education"
-$groupbox10.Controls.Add($10Education)
-
-$10ProEducation = New-Object System.Windows.Forms.RadioButton
-$10ProEducation.Location = New-Object System.Drawing.Size(10,140)
-$10ProEducation.Size = New-Object System.Drawing.Size(140,20)
-$10ProEducation.Text = "Pro Education"
-$groupbox10.Controls.Add($10ProEducation)
-############################################## End Windows 10 checkboxes
-############################################## Start Windows 11 checkboxes
-$11Home = New-Object System.Windows.Forms.RadioButton
-$11Home.Location = New-Object System.Drawing.Size(10,20)
-$11Home.Size = New-Object System.Drawing.Size(140,20)
-$11Home.Checked = $false
-$11Home.Text = "Home"
-$groupbox11.Controls.Add($11Home)
-
-$11HomeSL = New-Object System.Windows.Forms.RadioButton
-$11HomeSL.Location = New-Object System.Drawing.Size(10,40)
-$11HomeSL.Size = New-Object System.Drawing.Size(140,20)
-$11HomeSL.Text = "Home Single Language"
-$groupbox11.Controls.Add($11HomeSL)
-
-$11Pro = New-Object System.Windows.Forms.RadioButton
-$11Pro.Location = New-Object System.Drawing.Size(10,60)
-$11Pro.Size = New-Object System.Drawing.Size(140,20)
-$11Pro.Text = "Pro"
-$groupbox11.Controls.Add($11Pro)
-
-$11ProWorkstation = New-Object System.Windows.Forms.RadioButton
-$11ProWorkstation.Location = New-Object System.Drawing.Size(10,80)
-$11ProWorkstation.Size = New-Object System.Drawing.Size(140,20)
-$11ProWorkstation.Text = "Pro for Workstation"
-$11ProWorkstation.AutoSize = $true
-$groupbox11.Controls.Add($11ProWorkstation)
-
-$11Enterprise = New-Object System.Windows.Forms.RadioButton
-$11Enterprise.Location = New-Object System.Drawing.Size(10,100)
-$11Enterprise.Size = New-Object System.Drawing.Size(140,20)
-$11Enterprise.Text = "Enterprise"
-$groupbox11.Controls.Add($11Enterprise)
-
-$11Education = New-Object System.Windows.Forms.RadioButton
-$11Education.Location = New-Object System.Drawing.Size(10,120)
-$11Education.Size = New-Object System.Drawing.Size(140,20)
-$11Education.Text = "Education"
-$groupbox11.Controls.Add($11Education)
-
-$11ProEducation = New-Object System.Windows.Forms.RadioButton
-$11ProEducation.Location = New-Object System.Drawing.Size(10,140)
-$11ProEducation.Size = New-Object System.Drawing.Size(140,20)
-$11ProEducation.Text = "Pro Education"
-$groupbox11.Controls.Add($11ProEducation)
-
-############################################## End Windows 11 checkboxes
-############################################## Start Server 2016 checkboxes
-$srv2016std = New-Object System.Windows.Forms.RadioButton
-$srv2016std.Location = New-Object System.Drawing.Size(10,20)
-$srv2016std.Size = New-Object System.Drawing.Size(140,20)
-$srv2016std.Checked = $false
-$srv2016std.Text = "Standard"
-$groupboxsrv2016.Controls.Add($srv2016std)
-
-$srv2016data = New-Object System.Windows.Forms.RadioButton
-$srv2016data.Location = New-Object System.Drawing.Size(10,40)
-$srv2016data.Size = New-Object System.Drawing.Size(140,20)
-$srv2016data.Text = "Datacenter"
-$groupboxsrv2016.Controls.Add($srv2016data)
-
-$srv2016eval2std = New-Object System.Windows.Forms.RadioButton
-$srv2016eval2std.Location = New-Object System.Drawing.Size(10,60)
-$srv2016eval2std.Size = New-Object System.Drawing.Size(140,20)
-$srv2016eval2std.Text = "Evaluation to Standard"
-$groupboxsrv2016.Controls.Add($srv2016eval2std)
-
-$srv2016eval2data = New-Object System.Windows.Forms.RadioButton
-$srv2016eval2data.Location = New-Object System.Drawing.Size(10,80)
-$srv2016eval2data.Size = New-Object System.Drawing.Size(150,20)
-$srv2016eval2data.Text = "Evaluation to Datacenter"
-$groupboxsrv2016.Controls.Add($srv2016eval2data)
-
-############################################## End Server 2016 checkboxes
-############################################## Start Server 2019 checkboxes
-$srv2019std = New-Object System.Windows.Forms.RadioButton
-$srv2019std.Location = New-Object System.Drawing.Size(10,20)
-$srv2019std.Size = New-Object System.Drawing.Size(140,20)
-$srv2019std.Checked = $false
-$srv2019std.Text = "Standard"
-$groupboxsrv2019.Controls.Add($srv2019std)
-
-$srv2019data = New-Object System.Windows.Forms.RadioButton
-$srv2019data.Location = New-Object System.Drawing.Size(10,40)
-$srv2019data.Size = New-Object System.Drawing.Size(140,20)
-$srv2019data.Text = "Datacenter"
-$groupboxsrv2019.Controls.Add($srv2019data)
-
-$srv2019eval2std = New-Object System.Windows.Forms.RadioButton
-$srv2019eval2std.Location = New-Object System.Drawing.Size(10,60)
-$srv2019eval2std.Size = New-Object System.Drawing.Size(140,20)
-$srv2019eval2std.Text = "Evaluation to Standard"
-$groupboxsrv2019.Controls.Add($srv2019eval2std)
-
-$srv2019eval2data = New-Object System.Windows.Forms.RadioButton
-$srv2019eval2data.Location = New-Object System.Drawing.Size(10,80)
-$srv2019eval2data.Size = New-Object System.Drawing.Size(150,20)
-$srv2019eval2data.Text = "Evaluation to Datacenter"
-$groupboxsrv2019.Controls.Add($srv2019eval2data)
-############################################## End Server 2019 checkboxes
-
-############################################## Start Server 2022 checkboxes
-$srv2022std = New-Object System.Windows.Forms.RadioButton
-$srv2022std.Location = New-Object System.Drawing.Size(10,20)
-$srv2022std.Size = New-Object System.Drawing.Size(140,20)
-$srv2022std.Checked = $false
-$srv2022std.Text = "Standard"
-$groupboxsrv2022.Controls.Add($srv2022std)
-
-$srv2022data = New-Object System.Windows.Forms.RadioButton
-$srv2022data.Location = New-Object System.Drawing.Size(10,40)
-$srv2022data.Size = New-Object System.Drawing.Size(140,20)
-$srv2022data.Text = "Datacenter"
-$groupboxsrv2022.Controls.Add($srv2022data)
-
-$srv2022eval2std = New-Object System.Windows.Forms.RadioButton
-$srv2022eval2std.Location = New-Object System.Drawing.Size(10,60)
-$srv2022eval2std.Size = New-Object System.Drawing.Size(140,20)
-$srv2022eval2std.Text = "Evaluation to Standard"
-$groupboxsrv2022.Controls.Add($srv2022eval2std)
-
-$srv2022eval2data = New-Object System.Windows.Forms.RadioButton
-$srv2022eval2data.Location = New-Object System.Drawing.Size(10,80)
-$srv2022eval2data.Size = New-Object System.Drawing.Size(150,20)
-$srv2022eval2data.Text = "Evaluation to Datacenter"
-$groupboxsrv2022.Controls.Add($srv2022eval2data)
-############################################## End Server 2022 checkboxes
-
-
-############################################## Start Server 2012 R2 checkboxes
-$srv2012r2std = New-Object System.Windows.Forms.RadioButton
-$srv2012r2std.Location = New-Object System.Drawing.Size(10,20)
-$srv2012r2std.Size = New-Object System.Drawing.Size(140,20)
-$srv2012r2std.Checked = $false
-$srv2012r2std.Text = "Standard"
-$groupboxsrv2012r2.Controls.Add($srv2012r2std)
-
-$srv2012r2data = New-Object System.Windows.Forms.RadioButton
-$srv2012r2data.Location = New-Object System.Drawing.Size(10,40)
-$srv2012r2data.Size = New-Object System.Drawing.Size(140,20)
-$srv2012r2data.Text = "Datacenter"
-$groupboxsrv2012r2.Controls.Add($srv2012r2data)
-############################################## End Server 2012 R2 checkboxes
-
-############################################## Start Windows 10 Eval checkboxes
-$10Eval2Pro = New-Object System.Windows.Forms.RadioButton
-$10Eval2Pro.Location = New-Object System.Drawing.Size(10,20)
-$10Eval2Pro.Size = New-Object System.Drawing.Size(140,20)
-$10Eval2Pro.Checked = $false
-$10Eval2Pro.Text = "Pro"
-$groupboxeval.Controls.Add($10Eval2Pro)
-
-$10Eval2Enterprise = New-Object System.Windows.Forms.RadioButton
-$10Eval2Enterprise.Location = New-Object System.Drawing.Size(10,40)
-$10Eval2Enterprise.Size = New-Object System.Drawing.Size(140,20)
-$10Eval2Enterprise.Checked = $false
-$10Eval2Enterprise.Text = "Enterprise"
-$groupboxeval.Controls.Add($10Eval2Enterprise)
-
-$10Eval2ProWorkstation = New-Object System.Windows.Forms.RadioButton
-$10Eval2ProWorkstation.Location = New-Object System.Drawing.Size(10,60)
-$10Eval2ProWorkstation.Size = New-Object System.Drawing.Size(140,20)
-$10Eval2ProWorkstation.Checked = $false
-$10Eval2ProWorkstation.Text = "Pro for Workstation"
-$groupboxeval.Controls.Add($10Eval2ProWorkstation)
-
-$10Eval2LTSC2019Full = New-Object System.Windows.Forms.RadioButton
-$10Eval2LTSC2019Full.Location = New-Object System.Drawing.Size(10,80)
-$10Eval2LTSC2019Full.Size = New-Object System.Drawing.Size(300,20)
-$10Eval2LTSC2019Full.Checked = $false
-$10Eval2LTSC2019Full.Text = "Enterprise LTSC 2019 (Full)"
-$groupboxeval.Controls.Add($10Eval2LTSC2019Full)
-
-$10Eval2LTSC2021Full = New-Object System.Windows.Forms.RadioButton
-$10Eval2LTSC2021Full.Location = New-Object System.Drawing.Size(10,100)
-$10Eval2LTSC2021Full.Size = New-Object System.Drawing.Size(300,20)
-$10Eval2LTSC2021Full.Checked = $false
-$10Eval2LTSC2021Full.Text = "Enterprise LTSC 2021 (Full)"
-$groupboxeval.Controls.Add($10Eval2LTSC2021Full)
-############################################## End Windows 10 Eval checkboxes
-############################################## Start Windows 10 LTSC Eval checkboxes
-
-$10LTSCEval2Pro = New-Object System.Windows.Forms.RadioButton
-$10LTSCEval2Pro.Location = New-Object System.Drawing.Size(10,20)
-$10LTSCEval2Pro.Size = New-Object System.Drawing.Size(140,20)
-$10LTSCEval2Pro.Checked = $false
-$10LTSCEval2Pro.Text = "Pro"
-$groupbox10LTSCeval.Controls.Add($10LTSCEval2Pro)
-
-$10LTSCEval2Enterprise = New-Object System.Windows.Forms.RadioButton
-$10LTSCEval2Enterprise.Location = New-Object System.Drawing.Size(10,40)
-$10LTSCEval2Enterprise.Size = New-Object System.Drawing.Size(140,20)
-$10LTSCEval2Enterprise.Checked = $false
-$10LTSCEval2Enterprise.Text = "Enterprise"
-$groupbox10LTSCeval.Controls.Add($10LTSCEval2Enterprise)
-
-$10LTSCEval2ProWorkstation = New-Object System.Windows.Forms.RadioButton
-$10LTSCEval2ProWorkstation.Location = New-Object System.Drawing.Size(10,60)
-$10LTSCEval2ProWorkstation.Size = New-Object System.Drawing.Size(140,20)
-$10LTSCEval2ProWorkstation.Checked = $false
-$10LTSCEval2ProWorkstation.Text = "Pro for Workstation"
-$groupbox10LTSCeval.Controls.Add($10LTSCEval2ProWorkstation)
-
-$10LTSCEval2LTSC2019Full = New-Object System.Windows.Forms.RadioButton
-$10LTSCEval2LTSC2019Full.Location = New-Object System.Drawing.Size(10,80)
-$10LTSCEval2LTSC2019Full.Size = New-Object System.Drawing.Size(300,20)
-$10LTSCEval2LTSC2019Full.Checked = $false
-$10LTSCEval2LTSC2019Full.Text = "Enterprise LTSC 2019 (Full)"
-$groupbox10LTSCeval.Controls.Add($10LTSCEval2LTSC2019Full)
-
-$10LTSCEval2LTSC2021Full = New-Object System.Windows.Forms.RadioButton
-$10LTSCEval2LTSC2021Full.Location = New-Object System.Drawing.Size(10,100)
-$10LTSCEval2LTSC2021Full.Size = New-Object System.Drawing.Size(300,20)
-$10LTSCEval2LTSC2021Full.Checked = $false
-$10LTSCEval2LTSC2021Full.Text = "Enterprise LTSC 2021 (Full)"
-$groupbox10LTSCeval.Controls.Add($10LTSCEval2LTSC2021Full)
-############################################## End Windows 10 LTSC Eval checkboxes
-############################################## Start buttons
-
-$submitButton = New-Object System.Windows.Forms.Button 
-$submitButton.Cursor = [System.Windows.Forms.Cursors]::Hand
-$submitButton.BackColor = [System.Drawing.Color]::LightGreen
-$submitButton.Location = New-Object System.Drawing.Size(10,380) 
-$submitButton.Size = New-Object System.Drawing.Size(110,40) 
-$submitButton.Text = "Submit" 
-$submitButton.Add_Click({microsoftInstaller}) 
-$Form.Controls.Add($submitButton) 
-
-############################################## end buttons
-
-$Form.Add_Shown({$Form.Activate()})
-[void] $Form.ShowDialog()
+$null = $Form.ShowDialog()
