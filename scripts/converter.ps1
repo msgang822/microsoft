@@ -155,6 +155,9 @@ $xamlInput = @'
             $sync.Form.Dispatcher.Invoke([action] { $sync.textbox.Text = 'Completed' })
             $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.IsIndeterminate = $false })
             $sync.Form.Dispatcher.Invoke([action] { $sync.ProgressBar.Value = '100' })
+
+            Start-Sleep -Seconds 2
+            start ms-settings:activation
     }
 
 # Share info between runspaces
